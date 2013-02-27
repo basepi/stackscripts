@@ -10,7 +10,7 @@ wget $SSHKEYURL --output-document=/tmp/cmyers-ssh.pub
 cat /tmp/cmyers-ssh.pub >> /root/.ssh/authorized_keys
 
 apt-get update
-apt-get upgrade -y
+apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade -y
 
 for i in salt-{common,master,minion,syndic,doc} sysvinit-utils; do
 echo "Package: $i"
@@ -28,8 +28,8 @@ wget -q -O- "http://debian.madduck.net/repo/gpg/archive.key" | apt-key add -
 
 apt-get update -y
 
-apt-get install -y salt-minion salt-master salt-syndic
-apt-get install -y zsh git sudo mercurial gcc make python3 libncurses-dev
+apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y salt-minion salt-master salt-syndic
+apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y zsh git sudo mercurial gcc make python3 libncurses-dev
 
 cd /root
 
