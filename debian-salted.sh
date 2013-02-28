@@ -3,6 +3,7 @@
 exec &> /root/stackscript.log
 
 SSHKEYURL=http://files.basepi.net/ssh_keys/cmyers-alice.pub
+DEBIAN_FRONTEND=noninteractive
 
 mkdir /root/.ssh/
 touch /root/.ssh/authorized_keys
