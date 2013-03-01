@@ -4,13 +4,16 @@ exec &> /root/stackscript.log
 
 SSHKEYURL=http://files.basepi.net/ssh_keys/cmyers-alice.pub
 
+export UCF_FORCE_CONFFOLD=YES
+export DEBIAN_FRONTEND=noninteractive
+
 mkdir /root/.ssh/
 touch /root/.ssh/authorized_keys
 wget $SSHKEYURL --output-document=/tmp/cmyers-ssh.pub
 cat /tmp/cmyers-ssh.pub >> /root/.ssh/authorized_keys
 
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 for i in salt-{common,master,minion,syndic,doc} sysvinit-utils; do
 echo "Package: $i"
@@ -28,8 +31,8 @@ wget -q -O- "http://debian.madduck.net/repo/gpg/archive.key" | apt-key add -
 
 apt-get update -y
 
-DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install salt-minion salt-master salt-syndic
-DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install zsh git sudo mercurial gcc make python3 libncurses-dev
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install salt-minion salt-master salt-syndic
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install zsh git sudo mercurial gcc make python3 libncurses-dev
 
 cd /root
 
